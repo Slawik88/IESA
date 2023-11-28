@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <style>
+        /* Reset styles */
+        body,
+        h1,
+        h2,
+        h3,
+        p,
+        ul,
+        ol,
+        li,
+        figure,
+        figcaption,
+        blockquote,
+        dl,
+        dd {
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Стили для body */
+        body {
+            font-family: 'Open Sans', sans-serif;
+            line-height: 1;
+            background: linear-gradient(135deg, #2d0d0d, #3f1111);
+            /* Градиентный фон */
+            margin: 0;
+        }
+
+        /* Background for blocks */
+        .strong-sides-container {
+            background: linear-gradient(90deg, #3f1111, #2d0d0d);
+            padding: 30px 0;
+        }
+
+        /* Стили для контейнера */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            box-sizing: border-box;
+            border-left: 4px solid #FE0400;
+            border-right: 4px solid #FE0400;
+        }
+
+        /* Header styles */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #2d0d0d;
+            padding: 10px 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            max-height: 100px;
+            overflow: hidden;
+            transition: 0.5s padding, 0.5s background, 0.5s max-height;
+        }
+
+        .header.fixed {
+            z-index: 10;
+            color: #FE0400;
+            opacity: 0.8;
+            max-height: 70px;
+            padding: 5px 20px;
+            /* Уменьшаем отступы для плавного уменьшения высоты */
+            background: #3f1111;
+            /* Цвет фона при фиксированной шапке */
+            transition: 0.5s padding, 0.5s background, 0.5s max-height;
+        }
+
+
+
+        .header h1 {
+            font-size: 45px;
+            margin: 0;
+            transition: color 0.5s ease-in-out;
+        }
+
+        .header h1,
+        .nav a {
+            color: #FE0400;
+            /* Замените на нужный цвет текста ссылок */
+            opacity: 0.8;
+            transition: opacity 0.5s ease-in-out, color 0.5s ease-in-out;
+        }
+
+        .logo img {
+            width: 100px;
+            height: auto;
+            transition: transform 0.5s ease-in-out;
+
+        }
+
+
+        .header.fixed .logo img {
+            transform: scale(0.8);
+            /* Уменьшаем масштаб при фиксированной шапке */
+        }
+
+        .nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav li {
+            margin-left: 20px;
+        }
+
+        .nav a {
+            font-weight: bold;
+            font-size: 20px;
+            text-decoration: none;
+            color: #FE0400;
+            opacity: 0.8;
+            transition: opacity 0.5s ease-in-out, color 0.5s ease-in-out;
+            position: relative;
+            padding: 10px 20px;
+            border-radius: 4px;
+        }
+
+        .nav a:hover {
+            opacity: 1;
+            color: #F5F5DC;
+            /* Замените на нужный цвет при наведении */
+        }
+
+        .nav a:before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #FE0400;
+            transform-origin: bottom right;
+            transform: scale(0, 1);
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .nav a:hover:before {
+            transform-origin: bottom left;
+            transform: scale(1, 1);
+        }
+
+        /* Additional animation for user actions */
+        .user-actions button {
+            border: 2px solid #fe0400b7;
+            background-color: #FE0400;
+            color: #fff;
+            font-size: 15px;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out, border 0.5s ease-in-out;
+            margin-left: 10px;
+            padding: 10px 20px;
+        }
+
+        .user-actions button:hover {
+            border: 2px solid #FE0400;
+        }
+
+        /* Improved styles for the Strong Sides block */
+        .strong-sides-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin: 50px 0;
+            padding: 2% 5%;
+        }
+
+        .strong-side {
+            width: calc(30% - 20px);
+            margin-bottom: 30px;
+            background-color: #3F1111;
+            border: 2px solid #FE0400;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            transition: transform 0.5s ease-in-out, background-color 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
+            overflow: hidden;
+        }
+
+        .strong-side h2,
+        .strong-side p {
+            color: #fff;
+            transition: color 0.5s ease-in-out;
+        }
+
+        .strong-side:hover {
+            border: 2px solid #FE0400;
+            background-color: #292b2c;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+            transform: translateY(-10px);
+        }
+
+        .strong-side__title {
+            font-size: 24px;
+            color: #FE0400;
+            margin-bottom: 15px;
+        }
+
+        .strong-side__description {
+            font-size: 16px;
+            color: #ddd;
+            line-height: 1.6;
+        }
+
+        .strong-side:hover h2,
+        .strong-side:hover p {
+            color: #FF6666;
+        }
+
+        .swiper {
+            height: 600px;
+            margin-top: 200px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            /* Add this to hide overflow */
+        }
+
+        .swiper-slide {
+            display: flex;
+            /* Use flexbox to center the image */
+            align-items: center;
+            justify-content: center;
+        }
+
+        .swiper-slide img {
+            max-width: 100%;
+            /* Set maximum width to 100% */
+            max-height: 100%;
+            /* Set maximum height to 100% */
+            width: auto;
+            /* Allow the width to adjust based on the maximum width */
+            height: auto;
+            /* Allow the height to adjust based on the maximum height */
+        }
+
+        /* Additional styles for the Swiper navigation buttons */
+        .swiper-button-prev,
+        .swiper-button-next {
+            font-size: 25px;
+            color: #FE0400;
+            background-color: rgba(0, 0, 0, 0.5);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+
+        .swiper-button-prev:hover,
+        .swiper-button-next:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #fff;
+        }
+
+        /* Additional styles for the Swiper pagination */
+        .swiper-pagination {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            text-align: center;
+        }
+
+        .swiper-pagination-bullet {
+            width: 10px;
+            height: 10px;
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            display: inline-block;
+            margin: 0 8px;
+            transition: background-color 0.5s ease-in-out;
+        }
+
+        .swiper-pagination-bullet-active {
+            background-color: #FE0400;
+        }
+
+        /* Additional styles for the Swiper scrollbar */
+        .swiper-scrollbar {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 6px;
+            height: 80%;
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .swiper-scrollbar-drag {
+            width: 100%;
+            height: 100%;
+            background-color: #FE0400;
+            border-radius: 3px;
+        }
+
+        /* Styles for the Martial Arts Block */
+        .martial-arts-block {
+            background-color: #3f1111;
+            padding: 30px;
+            margin: 30px 0;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+
+        }
+
+        .martial-arts-content-wrapper {
+            flex: 1;
+            /* Растягиваем весь доступный контейнер влево */
+            padding-right: 20px;
+            /* Добавлен отступ справа для разделения текста и логотипа */
+        }
+
+        .martial-arts-title {
+            color: #FE0400;
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+
+        .martial-arts-slogan {
+            color: #fff;
+            font-style: italic;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+
+        .martial-arts-content {
+            color: #ddd;
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .martial-arts-logo img {
+            max-width: 100%;
+            max-height: 300px;
+            /* Ограничиваем высоту логотипа */
+        }
+
+
+        .martial-arts-block+.martial-arts-block {
+            margin-top: 20px;
+        }
+
+        /* Signup Container Styles */
+        .signup-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 40px;
+            padding-top: 50px;
+            padding-bottom: 50px;
+
+        }
+
+        /* Signup Form Styles */
+        .signup-form-container {
+            flex: 1;
+            margin-right: 40px;
+            /* Увеличил отступ справа для лучшей симметрии и визуального баланса */
+        }
+
+        .signup-form {
+            max-width: 300px;
+            margin: 0 auto;
+            background-color: #2d0d0d;
+            /* Изменил цвет фона для лучшего контраста */
+            padding: 30px;
+            /* Увеличил внутренний отступ для лучшего визуального разделения */
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            /* Увеличил тень для добавления глубины */
+        }
+
+        .signup-form__label {
+            display: block;
+            margin-bottom: 12px;
+            /* Увеличил отступ меток для лучшей читаемости */
+            font-weight: bold;
+            color: #FE0400;
+        }
+
+        .signup-form__input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            /* Увеличил отступ для лучшего визуального разделения полей */
+            border: 1px solid #FE0400;
+            border-radius: 8px;
+            background-color: #3f1111;
+            color: #ddd;
+            /* Изменил цвет текста для лучшей читаемости */
+            transition: border-color 0.5s ease-in-out;
+        }
+
+        .signup-form__input:hover,
+        .signup-form__input:focus {
+            border-color: #FE0400;
+            /* Изменил цвет рамки при наведении и фокусе */
+        }
+
+        .signup-form__button {
+            background-color: #FE0400;
+            color: white;
+            padding: 12px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            border-radius: 8px;
+            transition: background-color 0.5s ease-in-out;
+        }
+
+        .signup-form__button:hover {
+            background-color: #F5F5DC;
+        }
+
+        /* Information Block Styles */
+        .information-block {
+            flex: 1;
+            padding: 30px;
+
+            margin-left: 40px;
+            /* Увеличил отступ слева для лучшей симметрии */
+        }
+
+        .information-block__title {
+            font-size: 30px;
+            /* Увеличил размер заголовка для лучшей видимости */
+            margin-bottom: 15px;
+            /* Увеличил отступ между заголовком и текстом */
+            color: #FE0400;
+        }
+
+        .information-block__text {
+            color: #ddd;
+            font-size: 18px;
+            /* Увеличил размер основного текста */
+            line-height: 1.8;
+            /* Увеличил высоту строки */
+            margin-bottom: 20px;
+            /* Увеличил отступ между текстовыми блоками */
+        }
+
+        /* Футер стили */
+        .footer {
+            color: #fff;
+            padding: 20px 0;
+            margin-top: auto;
+            padding-top: 40px;
+            border-top: 4px solid #FE0400;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .social-links a {
+            color: #FE0400;
+            margin-right: 10px;
+            text-decoration: none;
+        }
+
+        .social-links a:hover {
+            text-decoration: underline;
+        }
+
+        .contact-info,
+        .additional-info {
+            flex: 1;
+        }
+
+        .additional-info p {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Content of the page -->
+        <div class="header">
+            <div class="logo">
+                <img src="media/img/logo.png" alt="Logo">
+            </div>
+            <div class="nav">
+                <ul>
+                    <li><a href="#" class="active">Home</a></li>
+                    <li><a href="#">Products/Services</a></li>
+                    <li><a href="#">About us</a></li>
+                </ul>
+            </div>
+            <div class="user-actions">
+                <button>Log In</button>
+                <button>Registration</button>
+            </div>
+        </div>
+
+        <!-- Slider main container -->
+        <div class="swiper">
+            <!-- Additional required wrapper -->
+            <div class="swiper-wrapper">
+                <!-- Slides -->
+                <img class="swiper-slide"
+                    src="https://media.gettyimages.com/id/171572016/de/foto/frau-silhouette-%C3%BCbung-kampfsport-karate-sonnenuntergang-im-freien-himmel.jpg?s=2048x2048&w=gi&k=20&c=JAa0C36pkbPGmbTOUKf4uPchSnAIzQ9uo9x5EOdpujk="
+                    alt="">
+                <img class="swiper-slide"
+                    src="https://media.gettyimages.com/photos/surfer-on-rock-against-sunset-water-around-picture-id597037961"
+                    alt="">
+                <img class="swiper-slide" src="media/img/swiper_img_3.png" alt="">
+                <img class="swiper-slide" src="media/img/swiper_img_4.jpg" alt="">
+            </div>
+            <!-- If we need pagination -->
+            <!-- <div class="swiper-pagination"></div> -->
+
+            <!-- If we need navigation buttons -->
+            <!-- <div class="swiper-button-prev"></div> -->
+            <!-- <div class="swiper-button-next"></div> -->
+
+            <!-- If we need scrollbar -->
+            <div class="swiper-scrollbar"></div>
+        </div>
+
+        <!-- Strong Sides Blocks -->
+        <div class="strong-sides-container">
+            <!-- Strong Side Block 1 -->
+            <div class="strong-side">
+                <h2 class="strong-side__title">Extreme Challenges</h2>
+                <p class="strong-side__description">Embark on extreme challenges with our cutting-edge approach to
+                    sports. Face the unknown, push your limits, and conquer the extraordinary in the world of extreme
+                    sports.</p>
+            </div>
+
+            <!-- Strong Side Block 2 -->
+            <div class="strong-side">
+                <h2 class="strong-side__title">Innovative Gear</h2>
+                <p class="strong-side__description">Explore our innovative gear designed to elevate your sporting
+                    experience. From state-of-the-art equipment to futuristic technology, we provide the tools for your
+                    next adventure.</p>
+            </div>
+
+            <!-- Strong Side Block 3 -->
+            <div class="strong-side">
+                <h2 class="strong-side__title">Global Community</h2>
+                <p class="strong-side__description">Become part of a global community that celebrates the spirit of
+                    extreme sports. Connect with like-minded enthusiasts and share experiences that transcend
+                    geographical boundaries.</p>
+            </div>
+            <!-- Add more Strong Side Blocks here -->
+        </div>
+        <!-- Martial Arts Block -->
+        <div class="martial-arts-block">
+            <div class="martial-arts-content-wrapper">
+                <!-- Form for email submission -->
+                <h2 class="martial-arts-title">Art Martial et Self Défense</h2>
+                <p class="martial-arts-slogan">“Connaître les autres relève de l’intelligence, se connaître soi-même est
+                    la
+                    vraie sagesse.
+                    Dominer les autres relève de la force, se maîtriser soi-même est le vrai pouvoir”</p>
+                <p class="martial-arts-content">L’école de Ju-Kenpo Karaté Jitsu, propose des cours pour les adultes et
+                    les
+                    enfants dès 5 ans.
+                    Nous enseignons le Ju-kenpo Karaté Jitsu, ainsi que le Kajukenbo à tous ceux qui souhaitent partager
+                    ces
+                    moments d’apprentissage, d’échange et de découverte de soi-même.</p>
+
+                <p class="martial-arts-content">A travers notre art martial, vous trouverez un enseignement basé sur le
+                    développement personnel, physique, et le respect.</p>
+
+                <p class="martial-arts-content">Pour les plus jeunes, les cours de Ju-Kenpo Karaté Jitsu permettront de
+                    mieux appréhender leur environnement ainsi que d’améliorer leur coordination par des techniques
+                    simples.
+                </p>
+
+                <p class="martial-arts-content">Pour les pratiquants plus expérimentés, des techniques avancées et plus
+                    complexes seront enseignées dans la voie d’un accomplissement personnel et martial.</p>
+            </div>
+
+            <div class="martial-arts-logo">
+                <!-- Замените 'path_to_logo.png' на путь к вашему логотипу -->
+                <img src="media/img/logo.png" alt="Logo">
+            </div>
+            ч
+        </div>
+        <!-- Signup Form and Information Layout -->
+        <div class="signup-container">
+            <!-- Signup Form Block -->
+            <div class="signup-form-container">
+                <form class="signup-form">
+                    <label class="signup-form__label" for="name">Name:</label>
+                    <input class="signup-form__input" type="text" id="name" name="name" placeholder="Enter your name"
+                        required>
+
+                    <label class="signup-form__label" for="surname">Surname:</label>
+                    <input class="signup-form__input" type="text" id="surname" name="surname"
+                        placeholder="Enter your surname" required>
+
+                    <label class="signup-form__label" for="email">Email:</label>
+                    <input class="signup-form__input" type="email" id="email" name="email"
+                        placeholder="Enter your email" required>
+
+                    <label class="signup-form__label" for="phone">Phone Number:</label>
+                    <input class="signup-form__input" type="tel" id="phone" name="phone"
+                        placeholder="Enter your phone number" required>
+
+                    <button class="signup-form__button" type="submit">Sign Up</button>
+                </form>
+            </div>
+
+            <!-- Information Block -->
+            <div class="information-block">
+                <h3 class="information-block__title">Unlock Your Potential</h3>
+                <p class="information-block__text">
+                    Embark on a journey of self-discovery and empowerment through the art of Ju-Kenpo Karaté Jitsu.
+                    Seize the
+                    opportunity to develop not only physical strength but also mental resilience.
+                </p>
+                <p class="information-block__text">
+                    Our classes are designed to inspire, challenge, and elevate. Join our community of dedicated
+                    individuals
+                    committed to mastering the martial arts and unlocking their full potential. Begin your
+                    transformative
+                    experience today!
+                </p>
+            </div>
+        </div>
+
+    </div>
+    <!-- Ваш футер -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="social-links">
+                <a href="#" target="_blank">Facebook</a>
+                <a href="#" target="_blank">Twitter</a>
+                <a href="#" target="_blank">Instagram</a>
+            </div>
+            <div class="contact-info">
+                <p>Email: example@example.com</p>
+                <p>Phone: +1 123 456 789</p>
+            </div>
+            <div class="additional-info">
+                <p>Address: 123 Main Street, City</p>
+                <p>&copy; 2023 Your Website Name</p>
+            </div>
+        </div>
+    </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var header = document.querySelector('.header');
+            var logo = document.querySelector('.logo img'); // Обратите внимание на '.logo img'
+
+            window.addEventListener('scroll', function () {
+                if (window.scrollY > 0) {
+                    header.classList.add('fixed');
+                    logo.style.transform = 'scale(0.8)';
+                } else {
+                    header.classList.remove('fixed');
+                    logo.style.transform = 'scale(1)';
+                }
+            });
+        });
+
+        new Swiper(".swiper", {
+            navigator: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev'
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            scrollbar: {
+                el: '.swiper-scrollbar',
+                draggable: true
+            },
+            slidesPerView: 1,
+        });
+    </script>
+</body>
+
+</html>
