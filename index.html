@@ -496,6 +496,158 @@
         .additional-info p {
             margin-top: 10px;
         }
+
+
+
+        /* Styles for the new Products Section */
+        .products-section {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: start;
+            margin: 40px 0;
+        }
+
+        .product-card {
+            position: relative;
+            overflow: hidden;
+            flex: 0 0 calc(27% - 10px);
+            background-color: #3f1111;
+            border: 2px solid #FE0400;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            margin-right: 6.5%;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .product-card::before,
+        .product-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 80%);
+            transition: transform 0.3s ease-in-out;
+            z-index: -1;
+            border-radius: 8px;
+            transform-origin: bottom;
+            filter: blur(8px);
+        }
+
+        .product-card::before {
+            transform-origin: top;
+        }
+
+        .product-card:hover::before {
+            transform: scaleY(0);
+        }
+
+        .product-card:hover::after {
+            transform: scaleY(1);
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 60%;
+            object-fit: cover;
+            border-radius: 8px;
+
+        }
+
+        .product-card:hover img {
+
+        }
+
+        .product-details {
+            margin-top: 15px;
+        }
+
+        .price {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            z-index: 1;
+            color: #FE0400;
+            mix-blend-mode: difference;
+            transition: color 0.3s ease-in-out;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px;
+            border-radius: 4px;
+            backdrop-filter: blur(4px);
+        }
+
+        .product-card:hover .price {
+            color: #F5F5DC;
+        }
+
+        .product-description {
+            color: #ddd;
+            font-size: 14px;
+            margin-top: 10px;
+            line-height: 1.4;
+            transition: color 0.3s ease-in-out;
+        }
+
+        .product-card:hover .product-description {
+            color: #F5F5DC;
+        }
+
+        .product-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(255, 255, 255, 0.1) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.1) 75%, transparent 75%, transparent);
+            background-size: 20px 20px;
+            animation: shimmer 1s infinite linear;
+            z-index: 1;
+        }
+
+        @keyframes shimmer {
+            0% {
+                transform: translateX(-100%);
+            }
+
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+
+        /* Добавлена анимация с задержкой к shimmer */
+        .product-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(255, 255, 255, 0.1) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.1) 75%, transparent 75%, transparent);
+            background-size: 20px 20px;
+            animation: shimmer 5s infinite linear;
+            /* Обновленная анимация с задержкой 5 секунд */
+            z-index: 1;
+        }
+
+
+
+        @keyframes shine {
+            to {
+                opacity: 1;
+                transform: translateX(100%);
+            }
+        }
     </style>
 </head>
 
@@ -509,7 +661,9 @@
             <div class="nav">
                 <ul>
                     <li><a href="#" class="active">Home</a></li>
+                    <li><a href="#">Courses</a></li>
                     <li><a href="#">Products/Services</a></li>
+                    <li><a href="#">About sport</a></li>
                     <li><a href="#">About us</a></li>
                 </ul>
             </div>
@@ -525,7 +679,7 @@
             <div class="swiper-wrapper">
                 <!-- Slides -->
                 <img class="swiper-slide"
-                    src="https://media.gettyimages.com/id/171572016/de/foto/frau-silhouette-%C3%BCbung-kampfsport-karate-sonnenuntergang-im-freien-himmel.jpg?s=2048x2048&w=gi&k=20&c=JAa0C36pkbPGmbTOUKf4uPchSnAIzQ9uo9x5EOdpujk="
+                    src="https://million-wallpapers.ru/wallpapers/6/66/449934250095720/sport.jpg"
                     alt="">
                 <img class="swiper-slide"
                     src="https://media.gettyimages.com/photos/surfer-on-rock-against-sunset-water-around-picture-id597037961"
@@ -647,6 +801,64 @@
                 </p>
             </div>
         </div>
+        <!-- New Products Section -->
+        <div class="products-section">
+            <div class="product-card">
+                <img src="https://www.forbox.com.ua/image/cachewebp/data/tovary/perchatki/bokserskie-perchatki/zelart/0866/bokserskie-perchatki-zelart-challenger-3-na-osnove-pu-kozhi-bo-0866-bkr-black-red-001-250x250.webp"
+                    alt="Product 1">
+                <div class="product-details">
+                    <div class="price">$49.99</div>
+                    <p class="product-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+                        eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="https://www.budoshop.ru/pic/full/files/lists/Products/001187_002_2338_forma-dlya-karate-shureido-new-wave-3-wkf.jpg"
+                    alt="Product 2">
+                <div class="product-details">
+                    <div class="price">$29.99</div>
+                    <p class="product-description">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                        nisi ut aliquip ex ea commodo consequat.</p>
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="https://www.vikids.ru/cdn-vikids-ru/uploads/ckeditor/pictures/5c7e4ad46c1d4073c042f884/content_1.jpg"
+                    alt="Product 2">
+                <div class="product-details">
+                    <div class="price">$29.99</div>
+                    <p class="product-description">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                        nisi ut aliquip ex ea commodo consequat.</p>
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="https://www.budoshop.ru/pic/full/files/lists/Products/001187_002_2338_forma-dlya-karate-shureido-new-wave-3-wkf.jpg"
+                    alt="Product 2">
+                <div class="product-details">
+                    <div class="price">$29.99</div>
+                    <p class="product-description">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                        nisi ut aliquip ex ea commodo consequat.</p>
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="https://kachai24.com/wa-data/public/shop/products/08/07/708/images/2135/2135.970.jpg"
+                    alt="Product 3">
+                <div class="product-details">
+                    <div class="price">$39.99</div>
+                    <p class="product-description">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+                        dolore eu fugiat nulla pariatur.</p>
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="https://sksport.in.ua/wp-content/uploads/2018/05/66f6f55e-55bd-11e7-af8d-363766626438-00000002102-800x750.jpg"
+                    alt="Product 2">
+                <div class="product-details">
+                    <div class="price">$29.99</div>
+                    <p class="product-description">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                        nisi ut aliquip ex ea commodo consequat.</p>
+                </div>
+            </div>
+        </div>
 
     </div>
     <!-- Ваш футер -->
@@ -702,6 +914,7 @@
             slidesPerView: 1,
         });
     </script>
+ 
 </body>
 
 </html>
